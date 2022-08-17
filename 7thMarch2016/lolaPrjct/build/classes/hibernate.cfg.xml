@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+ <!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/db_lola</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+		<property name="show_sql">true</property>
+
+
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="show_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<!-- <property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property> -->
+		<!-- <property name="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+
+		For singleton factory
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>
+
+
+		enable second level cache and query cache
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="net.sf.ehcache.configurationResourceName">lola_ehcache.xml</property> -->
+
+
+
+		<property name="connection.provider_class">
+			org.hibernate.connection.C3P0ConnectionProvider</property>
+			
+		<!-- 5.hibernate.c3p0.idle_test_period – idle time in seconds before a 
+			connection is automatically validated. Hibernate default: 0 -->
+		<!-- acquireIncrement Must be set in hibernate.cfg.xml (or hibernate.properties), 
+			Hibernate default: 1 Determines how many connections at a time c3p0 will 
+			try to acquire when the pool is exhausted. -->
+		<property name="hibernate.c3p0.acquire_increment">1</property>
+
+		<!-- idleTestPeriod Must be set in hibernate.cfg.xml (or hibernate.properties), 
+			Hibernate default: 0 If this is a number greater than 0, c3p0 will test all 
+			idle, pooled but unchecked-out connections, every this number of seconds. -->
+		<property name="hibernate.c3p0.idle_test_period">100</property>
+
+		<!-- hibernate.c3p0.min_size – Minimum number of JDBC connections in the 
+			pool. Hibernate default: 1 -->
+		<property name="hibernate.c3p0.min_size">10</property>
+
+		<!-- hibernate.c3p0.max_size – Maximum number of JDBC connections in the 
+			pool. Hibernate default: 100 -->
+		<property name="hibernate.c3p0.max_size">100</property>
+
+		<!-- hibernate.c3p0.max_statements – Number of prepared statements will 
+			be cached. Increase performance. Hibernate default: 0 , caching is disable. -->
+		<property name="hibernate.c3p0.max_statements">100</property>
+
+		<!-- hibernate.c3p0.timeout – When an idle connection is removed from the 
+			pool (in second). Hibernate default: 0, never expire. -->
+		<property name="hibernate.c3p0.timeout">300</property>
+
+		<!-- retry to establish connection periodically. -->
+		<property name="hibernate.c3p0.acquireRetryAttempts">4</property>
+		<property name="hibernate.c3p0.acquireRetryDelay">5000</property>
+
+		<!-- Mapped Entities -->
+
+		<mapping class="com.lola.model.User" />
+		<mapping class="com.lola.model.Role" />
+		<mapping class="com.lola.model.Brand" />
+		<mapping class="com.lola.model.BrandImages" />
+		<mapping class="com.lola.model.UserBrand" />
+		<mapping class="com.lola.model.UserBrandloyalityPoints" />
+		<mapping class="com.lola.model.UserProfile" />
+		<mapping class="com.lola.model.BrandDealsandOffers" />
+		<mapping class="com.lola.model.BrandMySpecials" />
+		<mapping class="com.lola.model.AdvtBrands" />
+		<mapping class="com.lola.model.BrandBucket" />
+		<mapping class="com.lola.model.BucketMaster" />
+		<mapping class="com.lola.model.BrandShowRoom" />
+		<mapping class="com.lola.model.BrandBanner" />
+		<mapping class="com.lola.model.RateandReview" />
+		<mapping class="com.lola.model.BrandNewArrivals" />
+		<mapping class="com.lola.model.DealsnOffersNoti" />
+		<mapping class="com.lola.model.NewArrivalNoti" />
+		<mapping class="com.lola.model.SpecialNoti" />
+		<mapping class="com.lola.model.Category" />
+		<mapping class="com.lola.model.BrandChildPhotoImages" />
+		<mapping class="com.lola.model.BrandPhotoImages" />
+		<mapping class="com.lola.model.BrandImageData" />
+		<mapping class="com.lola.model.MySpecialsChild" />
+		<mapping class="com.lola.model.MySpecialLeafPage" />
+		<mapping class="com.lola.model.DealsAndOffersLeafPage" />
+		<mapping class="com.lola.model.NewarrivalsLeafPage" />
+		<mapping class="com.lola.model.PhotoimageLeafPage" />
+		<mapping class="com.lola.model.OnSale" />
+		<mapping class="com.lola.model.OnSaleNotification" />
+		<mapping class="com.lola.model.OnSaleLeafPage" />
+		
+
+
+	</session-factory>
+</hibernate-configuration>

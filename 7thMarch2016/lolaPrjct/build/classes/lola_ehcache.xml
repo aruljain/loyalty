@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+    monitoring="autodetect" dynamicConfig="true">
+ 
+    <diskStore path="java.io.tmpdir/ehcache" />
+ 
+    <defaultCache usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="true"
+        timeToIdleSeconds="120" timeToLiveSeconds="120" diskSpoolBufferSizeMB="30"
+        maxEntriesLocalDisk="10000000" diskExpiryThreadIntervalSeconds="120"
+        memoryStoreEvictionPolicy="LRU" statistics="true">
+        <persistence strategy="localTempSwap" />
+    </defaultCache>
+ 
+     <cache name="user" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+    <cache name="userProfile" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="fasle"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache>  
+  <cache name="advtBrands" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brand" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandBanner" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandBucket" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandChildPhotoImages" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandDealsandOffers" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandImageData" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandImages" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandMySpecials" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandNewArrivals" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandPhotoImages" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="brandShowRoom" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="bucketMaster" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="category" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="dealsnOffersNoti" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="mySpecialsChild" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="newArrivalNoti" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="rateandReview" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="role" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="specialNoti" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="userBrand" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+     <cache name="userBrandloyalityPoints" usage="nonstrict-read-write" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache> 
+    
+    
+    
+ 
+    <cache name="org.hibernate.cache.internal.StandardQueryCache"
+    	usage="nonstrict-read-write"
+        maxEntriesLocalHeap="5" eternal="true" timeToLiveSeconds="120">
+        <persistence strategy="localTempSwap" />
+    </cache>
+ 
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+        maxEntriesLocalHeap="5000" eternal="true">
+        <persistence strategy="localTempSwap" />
+    </cache>
+</ehcache>
