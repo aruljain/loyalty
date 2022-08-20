@@ -1,0 +1,1024 @@
+<html ng-app="response">
+<head>
+<title>response</title>
+<link rel="stylesheet" type="text/css" href="css/Res.css"></link>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"></link>
+<script src="js/angular.min.js"></script>
+
+ <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="json-viewer/jquery.json-viewer.js"></script>
+    <link href="json-viewer/jquery.json-viewer.css" type="text/css" rel="stylesheet" />
+
+    <style type="text/css">
+	
+	
+		.form-signin
+{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.baf{
+	
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+    margin-bottom: 10px;
+}
+.form-signin .checkbox
+{
+    font-weight: normal;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 7px;
+    
+    
+}
+.form-signin .form-control:focus
+{
+    z-index: 2;
+}
+.form-signin input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall
+{
+    margin-top: 40px;
+    padding: 40px 0px 20px 0px;
+    background-color: #fff;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+   # box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.login-title
+{
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+}
+.central-title
+{
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+	position:absolute;
+top:10%;
+left:5%;
+}
+.profile-img
+{
+    width: 196px;
+    height: 196px;
+    margin: 0 auto 5px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+   # border-radius: 50%;
+}
+.need-help
+{
+    margin-top: 10px;
+}
+.new-account
+{
+    display: block;
+    margin-top: 10px;
+}
+	
+	
+	
+	
+body {
+  margin: 0 100px;
+  font-family: sans-serif;
+}
+h4,h5{
+color:#800000;
+}
+textarea#json-input {
+  width: 100%;
+  height: 200px;
+}
+pre#json-renderer {
+  border: 1px solid #aaa;
+  padding: 0.5em 1.5em;
+}
+b{
+-webkit-transition: all 0.7s ease;
+transition: all 0.7s ease;
+}
+b:hover{
+position:absolute;
+-webkit-transform:scale(1.2);
+transform:scale(1.2);
+}
+#na{
+position:absolute;
+top:0%;
+left:45%;
+}
+#do{
+position:absolute;
+top:0%;
+left:45%;
+}
+#ms{
+position:absolute;
+top:0%;
+left:45%;
+}
+#os{
+position:absolute;
+top:0%;
+left:45%;
+}
+div.col-md-12{
+position:absolute;
+top:83%;
+left:25%;%;
+}
+div.col-sm-6{
+height: 300px;
+width: 450px;
+padding: 0px;
+position:absolute;
+top:10%;
+left:30%;
+}
+div.col-md-8{
+position:absolute;
+top:5%;
+left:45%;
+}
+height: 500px;
+width: 250px;
+overflow: auto;
+padding: 8px;
+}
+
+div.col-md-5{
+height: 500px;
+width: 250px;
+overflow: auto;
+padding: 8px;
+}
+div.col-md-4{
+height: 350px;
+    width: 200px;
+    overflow: auto;
+    left: 0%;
+    padding: 8px;
+	
+}
+div.ba{
+position:absolute;
+top:0%;
+left:27%;
+}
+div.bkt{
+position:absolute;
+top:5%;
+left:25%;
+}
+
+td{
+-webkit-transition: all 0.7s ease;
+transition: all 0.7s ease;
+}
+
+td:hover{
+position:absolute;
+-webkit-transform:scale(1.2);
+transform:scale(1.2);
+}
+    </style>
+ <script>
+$(function() {
+  $('#btn-json-viewer').click(function() {
+    try {
+      var input = eval('(' + $('#json-input').val() + ')');
+    }
+    catch (error) {
+      return alert("Cannot eval JSON: " + error);
+    }
+    var options = {collapsed: $('#collapsed').is(':checked')};
+    $('#json-renderer').jsonViewer(input, options);
+  });
+
+  // Display JSON sample on load
+  $('#btn-json-viewer').click();
+});
+    </script>
+
+
+
+<script>
+var response = angular.module('response', []);
+var rdata;
+ 	 response.service('sharedProperties', function () {
+        var property = 'First';
+
+        return {
+            getProperty: function () {
+                return property;
+            },
+            setProperty: function(value) {
+                property = value;
+            }
+        };
+    });
+response.controller('responseControl',function($scope,$http,sharedProperties) {
+
+$scope.host='118.139.178.165';
+$scope.brandid='';
+
+$scope.msg='';
+$('#one').hide();
+$('#na').hide();
+	$('#do').hide();
+	$('#ms').hide();
+	$('#os').hide();
+	$('#rough').hide();
+	$('#jsonRes').hide();
+	$('#lolaCentral').hide();
+	$('#allbrand').hide();
+	$('#myApparels').hide();
+	$('#restr').hide();
+	$('#showjson').hide();
+	
+	
+$('#spa').hide();
+	$scope.emailId='a@a.com';
+	$scope.msg;
+	$scope.password='arul123';
+	$scope.mb_data = [];
+	 $scope.rd_data=[];
+	 $scope.sd_data=[];
+	 $scope.aBrand=[];
+	 $scope.rBrand=[];
+	 $scope.sBrand=[];
+	
+	 
+	 
+	
+	 
+	 
+	$scope.login=function(){
+	$('#home').hide();
+
+		$('#lolaCentral').show();
+var url = "http://"+$scope.host+":8080/lolaPrjct/rest/lolauser/logindata?userid="+$scope.emailId+"&password="+$scope.password;
+	
+	$http.get(url)
+    .then(function(data)
+	{
+for(var d in data){
+$scope.jsonRes=data;
+$scope.msg=data.Message;
+		
+	
+	if(d=='data'){
+	$scope.user=data[d].name;
+	$scope.usrId=data[d].Userid;
+	console.log("-----------"+data[d].name);
+	if(data[d].Status=='Success'){
+	$('#lolaCentral').show();
+	var url="http://"+$scope.host+":8080/lolaPrjct/rest/lolaHomeScreen/lolaHomeScreenDetails?userid="+$scope.usrId;
+	$http.get(url)
+    .then(function(data)
+	{
+	$scope.jsonRes=data;
+		//data=JSON.stringify(data);
+		
+		for(var a in data){
+		console.log("---"+a+"---"+data[d]);
+		if(a=='data'){
+		console.log("!!!!!!!!!inside lola central!!!!"+data[a].My_Brands);
+		$scope.point1=data[a].My_Brands[0].My_Brands_Points;
+		$scope.img1=data[a].My_Brands[0].ImagePath;
+		$scope.point2=data[a].My_Specials[0].My_Specials_Points;
+		$scope.img2=data[a].My_Specials[0].ImagePath;
+		$scope.point3=data[a].My_DealsnOffers[0].My_DealsnOffers_Points;
+		$scope.img3=data[a].My_DealsnOffers[0].ImagePath;
+		$scope.point4=data[a].All_Brands[0].All_Brands_Points;
+		$scope.img4=data[a].All_Brands[0].ImagePath;
+		$scope.point5=data[a].On_Sale[0].On_Sale_Points;
+		$scope.img5=data[a].On_Sale[0].ImagePath;
+		
+		$scope.specialPoints=data[a].My_Brands[0].My_Specials_Points;
+		}
+		}
+		
+		});
+	
+	}
+	else {
+	
+	$('#lolaCentral').hide();
+	$('#home').show();
+	
+	}
+	}
+	
+	}
+	
+		console.log("!!!!!!!!!!!!!"+JSON.stringify(data)+"---"+$scope.user+"----"+$scope.msg);
+		
+		
+		
+		if(data.Status=='Failure'){
+		//console.log("***"+data[d].Message);
+		//scope.message=data[d].Message;
+		
+}
+		//console.log("!!!!!!!!!1"+d);
+		
+		if(data.Status=='Success'){
+		console.log("-----HAI");
+		$('#one').show();
+		//$scope.msg=data[d].Message;
+		//$scope.user=data[d].name;
+		
+		
+		}
+	});
+	}
+	$scope.showJson = function()
+	{
+	$('#jsonRes').show();
+	}
+	
+	$scope.hideJson = function()
+	{
+	$('#jsonRes').hide();
+	}
+	
+	$scope.lolaCentral=function(){
+	$('#home').hide();
+	$('#lolaCentral').hide();
+	$('#one').hide();
+	$('#allbrand').show();
+	
+	}
+	$scope.apparels=function(){
+$('#myApparels').show();
+$('#restr').hide();
+$('#spa').hide();
+$scope.categoryId='2';
+	var url="http://"+$scope.host+":8080/lolaPrjct/rest/lolabrand/getMyBrandsByCategoryId?userid="+$scope.usrId+"&categoryid="+$scope.categoryId;
+	$http.get(url)
+    .then(function(data)
+	{
+	$scope.jsonRes=data;
+		//data=JSON.stringify(data);
+		console.log("----DATA"+JSON.stringify(data));
+		for(var a in data){
+		
+		
+		if(a=='data'){
+		console.log("---"+JSON.stringify(data[a].Data));
+		
+	for(var i=0;i<data[a].Data.length;i++){
+	 $scope.mb_data[i]=data[a].Data[i];
+	
+	 console.log("----NA DATA"+JSON.stringify($scope.mb_data)+"*********"+data[a].Data.length);
+	 $scope.aBrand[i]=data[a].Data[i].brandId;
+	// console.log("++++++++BRAND"+$scope.Brand[i]);
+	}
+	console.log( $scope.mb_data);
+	
+	}	
+ 
+ 
+  
+}		
+		});
+		}
+		
+		
+$scope.restarent=function(){
+$('#myApparels').hide();
+$('#restr').show();
+$('#spa').hide();
+
+$scope.categoryId='3';
+	var url="http://"+$scope.host+":8080/lolaPrjct/rest/lolabrand/getMyBrandsByCategoryId?userid="+$scope.usrId+"&categoryid="+$scope.categoryId;
+	$http.get(url)
+    .then(function(data)
+	{
+	$scope.jsonRes=data;
+		//data=JSON.stringify(data);
+		console.log("----DATA"+JSON.stringify(data));
+		for(var a in data){
+		
+		
+		if(a=='data'){
+		console.log("---"+JSON.stringify(data[a].Data));
+		
+	for(var i=0;i<data[a].Data.length;i++){
+	 $scope.rd_data[i]=data[a].Data[i];
+	
+	 console.log("----NA DATA"+JSON.stringify($scope.rd_data)+"*********"+data[a].Data.length);
+	 $scope.rBrand[i]=data[a].Data[i].brandId;
+	}
+	
+	}	
+ 
+ 
+  
+}
+		});
+		}
+		
+		
+		$scope.spa=function(){
+$('#myApparels').hide();
+$('#restr').hide();
+$('#spa').show();
+
+$scope.categoryId='4';
+	var url="http://"+$scope.host+":8080/lolaPrjct/rest/lolabrand/getMyBrandsByCategoryId?userid="+$scope.usrId+"&categoryid="+$scope.categoryId;
+	$http.get(url)
+    .then(function(data)
+	{
+	$scope.jsonRes=data;
+		//data=JSON.stringify(data);
+		console.log("----DATA"+JSON.stringify(data));
+		for(var a in data){
+		
+		
+		if(a=='data'){
+		console.log("---"+JSON.stringify(data[a].Data));
+		
+	for(var i=0;i<data[a].Data.length;i++){
+	 $scope.sd_data[i]=data[a].Data[i];
+	
+	 console.log("----NA DATA"+JSON.stringify($scope.sd_data)+"*********"+data[a].Data.length);
+	 $scope.sBrand[i]=data[a].Data[i].brandId;
+	 
+	}
+	
+	
+	}	
+ 
+ 
+  
+}
+
+		
+		});
+		}
+		
+		
+		
+		
+		$scope.brand=function(index){
+		console.log("---abc--"+index);
+		
+		console.log("+++++-----+++BRAND"+$scope.Brand[index]);
+		$('#one').show();
+		}
+		$scope.myChange=function(val){
+		
+$scope.sucMsg=$scope.msg;
+$('#one').show();
+$('#rough').show();
+$('#na').hide();
+$('#do').hide();
+	$('#ms').hide();
+	$('#os').hide();
+//console.log("arul 3 on-change",$scope.something);
+//var bid = $scope.brandid;
+//var uid = $scope.userid;
+
+var url = "http://"+$scope.host+":8080/lolaPrjct/rest/brandaffinity/getBrandaffinityPage?userid="+$scope.usrId+"&brandid="+val;
+$scope.brandid=val;	
+	$http.get(url)
+    .then(function(data)
+	{
+		//data=JSON.stringify(data);
+		console.log("!!!!!!!!!!!!!"+data);
+		//var e=JSON.stringify(data);
+
+		for(var s in data){
+			
+	
+	rdata=data[s];
+	
+$scope.Logopath1=data.data.Logopath;
+$scope.brandname=data.data.brandname;
+
+
+$scope.shoptimings=data.data.shoptimings
+$scope.address=data.data.address;
+$scope.contact=data.data.contact;
+$scope.email=data.data.email;
+$scope.jsonRes=data;
+
+$scope.bannerimage=data.data.bannerimage;
+
+$scope.bucketname0=rdata.buckets[0].bucketname;
+$scope.imagepath0=rdata.buckets[0].imagepath;
+$scope.bucketname1=rdata.buckets[1].bucketname;
+$scope.imagepath1=rdata.buckets[1].imagepath;
+$scope.bucketname2=rdata.buckets[2].bucketname;
+$scope.imagepath2=rdata.buckets[2].imagepath;
+$scope.bucketname3=rdata.buckets[3].bucketname;
+$scope.imagepath3=rdata.buckets[3].imagepath;
+$scope.bucketname4=rdata.buckets[4].bucketname;
+$scope.imagepath4=rdata.buckets[4].imagepath;
+
+
+
+console.log("****"+$scope.Imagepath1);
+	
+	
+		}
+	});
+	}
+	$scope.newArrival=function(val){
+	console.log("----NEW AR"+val);
+$('#na').show();
+$('#do').hide();
+ $('#ms').hide();
+ $('#os').hide();
+	console.log("hello");
+//console.log("arul 3 on-change",$scope.something);
+//var bid = $scope.brandid;
+//var uid = $scope.userid;
+
+var url = "http://"+$scope.host+":8080/lolaPrjct/rest/branddealsandoffers/getNewArrivalsbyBrandId?brandId="
++val+"&userId="+$scope.usrId;
+$http
+.get(url)
+    .then(function(data)
+	{
+		//data=JSON.stringify(data);
+		
+		//var e=JSON.stringify(data);
+		var i=0;
+		
+	$scope.na_data=[];
+	
+		for(var s in data){
+			
+	
+	rdata=data[s];
+	
+$scope.Logopath1=data.data.Logopath;
+$scope.brandname=data.data.brandname;
+
+$scope.shoptimings=data.data.shoptimings
+$scope.address=data.data.address;
+$scope.contact=data.data.contact;
+$scope.email=data.data.email;
+$scope.jsonRes=data;
+for (var y = 0, l = data.data.Data.length; y < l; y++) {
+ 
+  $scope.na_data[y]=rdata.Data[y];
+  
+}
+
+i++;
+
+	
+		}
+	});
+	}
+	$scope.dealsOffer=function(val){
+	$('#na').hide();
+	$('#do').show();
+    $('#ms').hide();
+	$('#os').hide();
+//console.log("arul 3 on-change",$scope.something);
+
+
+var url = "http://"+$scope.host+":8080/lolaPrjct/rest/branddealsandoffers/getMyDealsandOffersbyBrandId?brandId="
++$scope.brandid+"&userId="+$scope.usrId;
+$http
+.get(url)
+    .then(function(data)
+	{
+		//data=JSON.stringify(data);
+		
+		//var e=JSON.stringify(data);
+		var i=0;
+		
+	$scope.do_data=[];
+	
+		for(var s in data){
+			
+	
+	rdata=data[s];
+	
+$scope.Logopath1=data.data.Logopath;
+$scope.brandname=data.data.brandname;
+$scope.shoptimings=data.data.shoptimings
+$scope.address=data.data.address;
+$scope.contact=data.data.contact;
+$scope.email=data.data.email;
+$scope.jsonRes=data;
+for (var y = 0, l = data.data.Data.length; y < l; y++) {
+ 
+  $scope.do_data[y]=rdata.Data[y];
+  
+}
+
+
+
+/*$scope.imagepath1=rdata.Data[1].imagepath;
+$scope.desc1=rdata.Data[1].desc;
+
+$scope.imagepath2=rdata.Data[2].imagepath;
+$scope.desc2=rdata.Data[2].desc;
+
+$scope.imagepath3=rdata.Data[3].imagepath;
+$scope.desc3=rdata.Data[3].desc; */
+i++;
+
+
+
+	
+	
+		}
+	});
+	}
+	$scope.mySpecial=function(val){
+	$('#na').hide();
+	$('#do').hide();
+$('#ms').show();
+$('#os').hide();
+//console.log("arul 3 on-change",$scope.something);
+
+
+var url ="http://"+$scope.host+":8080/lolaPrjct/rest/brandspecialphotoimages/getMySpecialsPhotoImagesByBrandId?brandId="+$scope.brandid+"&userId="+$scope.usrId;
+$http
+.get(url)
+    .then(function(data)
+	{
+		//data=JSON.stringify(data);
+		
+		//var e=JSON.stringify(data);
+		var i=0;
+		
+		$scope.ms_data=[];
+	
+		for(var s in data){
+			
+	
+	rdata=data[s];
+	
+$scope.Logopath1=data.data.Logopath;
+$scope.brandname=data.data.brandname;
+$scope.brandid=data.data.brandId;
+$scope.shoptimings=data.data.shoptimings
+$scope.address=data.data.address;
+$scope.contact=data.data.contact;
+$scope.email=data.data.email;
+$scope.jsonRes=data;
+for (var y = 0, l = data.data.Data.length; y < l; y++) {
+ 
+  $scope.ms_data[y]=rdata.Data[y];
+  
+}
+
+
+i++;
+
+
+	
+	
+		}
+	});
+	}
+	$scope.onSale=function(val){
+$('#na').hide();
+$('#do').hide();
+$('#ms').hide();
+$('#os').show();
+//console.log("arul 3 on-change",$scope.something);
+
+
+var url = "http://"+$scope.host+":8080/lolaPrjct/rest/onsale/getMyOnSaleByBrandid?brandId="+$scope.brandid+"&userId="+$scope.usrId;
+$http
+.get(url)
+    .then(function(data)
+	{
+		//data=JSON.stringify(data);
+		
+		//var e=JSON.stringify(data);
+		var i=0;
+		
+		$scope.os_data=[];
+	
+		for(var s in data){
+			
+	
+	rdata=data[s];
+	
+$scope.Logopath1=data.data.Logopath;
+$scope.brandname=data.data.brandname;
+$scope.shoptimings=data.data.shoptimings
+$scope.address=data.data.address;
+$scope.contact=data.data.contact;
+$scope.email=data.data.email;
+$scope.jsonRes=data;
+
+for (var y = 0, l = data.data.Data.length; y < l; y++) {
+ 
+  $scope.os_data[y]=rdata.Data[y];
+  
+}
+
+
+
+/*$scope.imagepath1=rdata.Data[1].imagepath;
+$scope.desc1=rdata.Data[1].desc;
+
+$scope.imagepath2=rdata.Data[2].imagepath;
+$scope.desc2=rdata.Data[2].desc;
+
+$scope.imagepath3=rdata.Data[3].imagepath;
+$scope.desc3=rdata.Data[3].desc; */
+i++;
+
+
+
+	
+	
+		}
+	});
+	}
+	
+	
+	
+	
+});
+
+
+</script>
+
+</head>
+<body>
+
+ 
+
+<div ng-app="response" ng-controller="responseControl">
+
+
+<div class="container col-sm-6" id="home">
+ <h1 class="text-left login-title">Welcome to Lola Web</h1>
+ 
+ <form class="form-signin">	
+							
+				Webservices Host
+              <input type="text" class="form-control" ng-model="host" placeholder="Host" required autofocus>
+
+			
+                Email <input type="text" class="form-control" ng-model="emailId" placeholder="Email" required autofocus>
+                Password <input type="password" class="form-control" ng-model="password" placeholder="Password" required>
+                <br>
+				<button class="btn btn-lg btn-danger btn-block" ng-click="login()">
+                    Sign in</button>
+                
+                
+                </form>
+
+</div>
+
+
+<div id="lolaCentral" >
+
+ <div class="container col-sm-3" style="margin-top:30px !important; background: -2px -5px url('images/phone.jpg') no-repeat !important">
+ <h4>Lola Central  </h4>
+ <div class="col-md-4 well" >
+<b><img ng-src="{{img1}}" width="150" ng-click="lolaCentral();apparels()"><button class="btn btn-sm btn-success">{{point1}}</button><br></b>
+<img ng-src="{{img2}}" width="150" ><button class="btn btn-sm btn-success">{{point2}}</button><br>
+<img ng-src="{{img3}}" width="150" ><button class="btn btn-sm btn-success">{{point3}}</button><br>
+<img ng-src="{{img4}}" width="150" ><button class="btn btn-sm btn-success">{{point4}}</button><br>
+<img ng-src="{{img5}}" width="150" ><button class="btn btn-sm btn-success">{{point5}}</button><br>
+
+<p>{{specialPoints}}</p>
+</div>
+<button class="btn btn-lg btn-success" ng-click="showJson()">Show JSON</button>&nbsp;
+<button class="btn btn-sm btn-info" ng-click="hideJson()">hide JSON</button>&nbsp;
+</div>
+
+</div>
+
+
+
+
+<div id="allbrand">
+<div>
+<button class="btn btn-sm btn-success" ng-click="showJson()">Show JSON</button>&nbsp;
+<button class="btn btn-sm btn-info" ng-click="hideJson()">hide JSON</button>&nbsp;
+<h4>MY BRANDS</h4><br>
+<button class="btn btn-sm btn-success" ng-click="apparels()">Apparels</button>&nbsp;
+<button class="btn btn-sm btn-success" ng-click="restarent()">Restaurent</button>&nbsp;
+<button class="btn btn-sm btn-success" ng-click="spa()">Spa     </button>
+</div>
+
+
+<div class="container col-sm-3" style="margin-top:0px !important; margin-left:-10px !important; background: -2px -5px url('images/phone.jpg') no-repeat !important">
+<div class="col-md-4 well" id="myApparels" style="margin-top:40px">
+<ul>
+
+<li ng-repeat="y in mb_data">
+
+  
+ <img ng-src="{{y.imagepath}}" width="100" ng-click="myChange(aBrand[$index])"/><br><button class="btn btn-sm btn-success">{{y.brandName}}</button><br>
+	
+  
+</li>
+</ul>
+</div>
+</div>
+
+
+<div class="container col-sm-3" style="margin-top:0px !important; margin-left:-270px !important; background: -2px -5px url('images/phone.jpg') no-repeat !important">
+<div class="col-md-4 well" id="restr" style="margin-top:40px">
+
+<ul>
+
+<li ng-repeat="y in rd_data">
+
+  
+ <img ng-src="{{y.imagepath}}" width="100" ng-click="myChange(rBrand[$index])"/><br><button class="btn btn-sm btn-success">{{y.brandName}}</button><br>
+	
+  
+</li>
+</ul>
+</div>
+</div>
+
+<div class="container col-sm-3" style="margin-top:0px !important; margin-left:-270px !important; background: -2px -5px url('images/phone.jpg') no-repeat !important">
+<div class="col-md-4 well" id="spa" style="margin-top:40px">
+<ul>
+
+<li ng-repeat="y in sd_data">
+
+  
+ <img ng-src="{{y.imagepath}}" width="100" ng-click="myChange(sBrand[$index])" /><br><button class="btn btn-sm btn-success">{{y.brandName}}</button><br>
+	
+  
+ 
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+<div class="container col-sm-3" style="margin-top:-50px !important; margin-left:-70px !important; background: -2px -5px url('images/phone.jpg') no-repeat !important">
+<div class="ba" id="one">
+
+<div class="row">
+
+<div id="rough">
+
+<h5 class="baf">Brand&nbsp;Affinity</h5><p>{{sucMsg}}</p>
+{{msg}}
+<div class="row-xs-height">
+<img ng-src="{{Logopath1}}" width="60" height="30" />{{brandname}}
+
+ {{address}} <br>
+{{contact}}<br>
+{{email}}<br>
+<img ng-src="{{bannerimage}}" width="200" height="60"></pre>
+</div>
+
+<div class="col-md-4 well">
+<div class="row-xs-height">
+<table>
+<tr><td><img ng-src="{{imagepath0}}" width="100" height="100" ng-click="newArrival(brandid)"></td>
+<td><img ng-src="{{imagepath1}}" width="100" height="100" ng-click="mySpecial(brandid)"></td></tr>
+<tr><td><h6>{{bucketname0}}</h6></td><td><h6>{{bucketname1}}</h6></td></tr>
+
+<tr><td><img ng-src="{{imagepath2}}" width="100" height="100"  ng-click="dealsOffer(brandid)"></td>
+<td><img ng-src="{{imagepath3}}" width="100" height="100"></td></tr>
+<tr><td><h6>{{bucketname2}}</h6></td><td><h6>{{bucketname3}}</h6></td></tr>
+<tr><td><img ng-src="{{imagepath4}}" width="100" height="100" ng-click="onSale(brandid)"></td></tr>
+<tr><td><h6>{{bucketname4}}</h6></td></tr>
+</table>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="na" id="na">
+<h5>New Arrivals</h5>
+<img ng-src="{{Logopath1}}" width="60" height="30"><h5>{{brandname}}</h5> <br>
+
+ {{shoptimings}} <br>
+ {{address}} <br>
+ {{contact}} <br>
+ {{email}}<br>
+<div class="col-md-4 well">
+<div class="row-xs-height">
+<ul>
+<li ng-repeat="x in na_data">
+  <img ng-src="{{x.imagepath}}"  width="100" height="100"/><br>{{x.desc}}
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+<div class="do" id="do">
+<h5>Deals and Offers</h5>
+<img ng-src="{{Logopath1}}" width="60" height="30"><h5>{{brandname}}</h5> <br>
+
+ {{shoptimings}} <br>
+ {{address}} <br>
+ {{contact}} <br>
+ {{email}}<br>
+<div class="col-md-4 well">
+<div class="row-xs-height">
+<ul>
+<li ng-repeat="x in do_data">
+  <img ng-src="{{x.imagepath}}"  width="100" height="100"/><br>{{x.desc}}
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+<div class="ms" id="ms">
+<h5>My Specials</h5>
+<img ng-src="{{Logopath1}}" width="60" height="30"><h5>{{brandname}}</h5> <br>
+
+ {{shoptimings}} <br>
+ {{address}} <br>
+ {{contact}} <br>
+ {{email}}<br>
+<div class="col-md-4 well">
+<div class="row-xs-height">
+<ul>
+<li ng-repeat="x in ms_data">
+  <img ng-src="{{x.imagepath}}"  width="100" height="100"/><br>{{x.desc}}
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+<div class="os" id="os">
+<h5>On Sale</h5>
+<img ng-src="{{Logopath1}}" width="60" height="30"><h5>{{brandname}}</h5> <br>
+
+ {{shoptimings}} <br>
+ {{address}} <br>
+ {{contact}} <br>
+ {{email}}<br>
+<div class="col-md-4 well">
+<div class="row-xs-height">
+<ul>
+<li ng-repeat="x in os_data">
+  <img ng-src="{{x.imagepath}}"  width="100" height="100"/><br>{{x.desc}}
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<div class="container" id="jsonRes">
+<textarea id="json-input" autocomplete="off">
+{{jsonRes}}
+</textarea>
+    <button class="btn btn-sm btn-info" id="btn-json-viewer">json-viewer</button>
+    <label><input type="checkbox" id="collapsed" />Collapse</label>
+    <pre id="json-renderer">
+	
+	</pre>
+
+</div>
+
+
+</div>
+</body>
+</html>
